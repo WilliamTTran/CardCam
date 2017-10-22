@@ -41,7 +41,7 @@ public class TextDetector {
 	  id.detectImages(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK);
   }
   
-  private static List<List<String>> getHighlightedText(ImageProcessor ip, List<EntityAnnotation> annotations, Color colorToCompare) {
+  private static List<List<String>> getHighlightedText(ImageProcessor ip, List<EntityAnnotation> annotations, int[] colorToCompare) {
 	  int medianPixelHeight = getMedianPixelHeight(annotations);
 	  ArrayList<List<String>> blocks = new ArrayList<List<String>>();
 	  ArrayList<String> textBlock = new ArrayList<String>();
@@ -122,7 +122,7 @@ public class TextDetector {
 	  }
 	}
 
-  public static List<List<String>> detectText(String filePath, Color colorToCompare) throws Exception, IOException {
+  public static List<List<String>> detectText(String filePath, int[] colorToCompare) throws Exception, IOException {
 	  List<AnnotateImageRequest> requests = new ArrayList<>();
 
 	  ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));

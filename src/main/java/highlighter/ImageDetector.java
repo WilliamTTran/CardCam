@@ -3,13 +3,9 @@ package highlighter;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import javax.imageio.ImageIO;
 
 import ij.ImagePlus;
 import ij.gui.Roi;
@@ -25,7 +21,7 @@ public class ImageDetector {
 	private Point bottomRight = null;
 	private ImageProcessor ip;
 	
-	public ArrayList<BufferedImage> detectImages(String filePath, Color colorToCompare) throws IOException {
+	public ArrayList<BufferedImage> detectImages(String filePath, int[] pink) throws IOException {
 		checkedPoints = new HashSet<Point>();
 		detectedImages = new ArrayList<Roi>();
 		bottomRight = null;
@@ -47,9 +43,9 @@ public class ImageDetector {
 					  }
 				  }
 				  if(!contains && !checkedPoints.contains(new Point(x,y))) {
-					  Roi boxedImage = getBoxedImage(x,y, colorToCompare); //will be null unless it finds a new object
+					  Roi boxedImage = getBoxedImage(x,y, pink); //will be null unless it finds a new object
 					  	if(boxedImage != null){
-					  		if(Highlighter.highlightPercentage(ip, boxedImage, colorToCompare) < HIGHLIGHT_THRESHOLD){
+					  		if(Highlighter.highlightPercentage(ip, boxedImage, pink) < HIGHLIGHT_THRESHOLD){
 								  detectedImages.add(boxedImage);
 					  		}
 					  	}
@@ -67,9 +63,9 @@ public class ImageDetector {
 		return images;
 	}
 	
-	private Roi getBoxedImage(int x, int y, Color colorToCompare) {
+	private Roi getBoxedImage(int x, int y, int[] pink) {
 		bottomRight = new Point(x,y);
-		recursivelyCheckAdjacentPixels(x,y,colorToCompare);
+		recursivelyCheckAdjacentPixels(x,y,pink);
 		double width = bottomRight.getX() - x;
 		double height = bottomRight.getY() - y;
 		if(width * height >= AREA_THRESHOLD) {
@@ -81,26 +77,26 @@ public class ImageDetector {
 		}
 	}
 	
-	private void recursivelyCheckAdjacentPixels(int x, int y, Color colorToCompare) {
+	private void recursivelyCheckAdjacentPixels(int x, int y, int[] pink) {
 		Point p = new Point(x-1,y);
-		if(Highlighter.isPixelSimilarColor(ip, x-1, y, colorToCompare) && !checkedPoints.contains(p)) {
+		if(Highlighter.isPixelSimilarColor(ip, x-1, y, pink) && !checkedPoints.contains(p)) {
 			checkedPoints.add(p); 
-			recursivelyCheckAdjacentPixels(x-1, y, colorToCompare);
+			recursivelyCheckAdjacentPixels(x-1, y, pink);
 		}
 		p = new Point(x+1,y);
-		if(Highlighter.isPixelSimilarColor(ip, x+1, y, colorToCompare) && !checkedPoints.contains(p)) {
+		if(Highlighter.isPixelSimilarColor(ip, x+1, y, pink) && !checkedPoints.contains(p)) {
 			checkedPoints.add(p); 
-			recursivelyCheckAdjacentPixels(x+1, y, colorToCompare);
+			recursivelyCheckAdjacentPixels(x+1, y, pink);
 		}
 		p = new Point(x,y+1);
-		if(Highlighter.isPixelSimilarColor(ip, x, y+1, colorToCompare) && !checkedPoints.contains(p)) {
+		if(Highlighter.isPixelSimilarColor(ip, x, y+1, pink) && !checkedPoints.contains(p)) {
 			checkedPoints.add(p); 
-			recursivelyCheckAdjacentPixels(x, y+1, colorToCompare);
+			recursivelyCheckAdjacentPixels(x, y+1, pink);
 		}
 		p = new Point(x,y-1);
-		if(Highlighter.isPixelSimilarColor(ip, x, y-1, colorToCompare) && !checkedPoints.contains(p)) {
+		if(Highlighter.isPixelSimilarColor(ip, x, y-1, pink) && !checkedPoints.contains(p)) {
 			checkedPoints.add(p); 
-			recursivelyCheckAdjacentPixels(x, y-1, colorToCompare);
+			recursivelyCheckAdjacentPixels(x, y-1, pink);
 		}
 		setBottomRight(x,y);
 	}
