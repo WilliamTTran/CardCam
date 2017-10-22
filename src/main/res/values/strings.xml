@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Card Cam</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="home_create_text">Create</string>
+    <string name="home_view_text">View</string>
+    <string name="home_help_text">Help</string>
+</resources>
