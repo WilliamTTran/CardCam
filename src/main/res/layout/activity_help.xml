@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context="com.thonkang.flashcardcreator.HelpActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/help" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -24,7 +30,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Activate the camera to add all highlighted text to their respective card face. Press done to continue to front-face creation."
         android:textColor="#000000"
@@ -34,7 +40,7 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="Drag and drop your notes onto the face of the card at the top. To see more of your notes, scroll up and down the text section. Afterwards, you may take more photos, edit the back face of the card, or finish the card."
         android:textColor="#000000"
         android:textSize="20sp"
@@ -44,7 +50,7 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="While viewing the final card, you may go back to edit it, make a new card in the deck, or finalize the deck."
         android:textColor="#000000"
         android:textSize="20sp"
@@ -54,9 +60,9 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="Make sure to give the deck a name and description. You can still edit and view your cards before you finalize it."
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:gravity="center" />
+        android:textSize="20sp" />
 </LinearLayout>
