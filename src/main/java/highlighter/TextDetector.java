@@ -1,6 +1,5 @@
 package highlighter;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -54,7 +53,7 @@ public class TextDetector {
 		   * if y-distance between words is over new block threshold, make a new block;
 		   * otherwise, concatenate;
 		   */
-		  if(Highlighter.highlightPercentage(ip, Highlighter.polyToRoi(ea.getBoundingPoly()), colorToCompare) > HIGHLIGHT_THRESHOLD) {
+		  if(Highlighter.highlightPercentage(ip, Highlighter.polyToRect(ea.getBoundingPoly()), colorToCompare) > HIGHLIGHT_THRESHOLD) {
 			  if(tempY == -1) {
 				  tempY = (int)centerOfPoly(ea.getBoundingPoly()).getY();
 			  }
@@ -71,7 +70,7 @@ public class TextDetector {
 			  textBlock = new ArrayList<String>();
 		  }
 		  
-		  if(Highlighter.highlightPercentage(ip, Highlighter.polyToRoi(ea.getBoundingPoly()), colorToCompare) > HIGHLIGHT_THRESHOLD) {
+		  if(Highlighter.highlightPercentage(ip, Highlighter.polyToRect(ea.getBoundingPoly()), colorToCompare) > HIGHLIGHT_THRESHOLD) {
 			  line += ea.getDescription() + " ";
 		  }
 		  

@@ -1,11 +1,9 @@
 package highlighter;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 
 import com.google.cloud.vision.v1.BoundingPoly;
 
-import ij.gui.Roi;
 import ij.process.ImageProcessor;
 
 public class Highlighter {
@@ -34,10 +32,9 @@ public class Highlighter {
 				  + Math.pow(c1[Highlighter.RGB_BLUE]-c2[Highlighter.RGB_BLUE],2));
 	  }
 	
-	  protected static double highlightPercentage(ImageProcessor ip, Roi roi, int[] colorToCompare) {
+	  protected static double highlightPercentage(ImageProcessor ip, Rectangle r, int[] colorToCompare) {
 		  int similar = 0, different = 0;
-		  
-		  Rectangle r = roi.getBounds();
+
 		  for(int y=r.y; y<r.getMaxY(); y++) {
 			  for(int x=r.x; x<r.getMaxX(); x++) {
 				  if(Highlighter.isPixelSimilarColor(ip,x,y, colorToCompare)) {
@@ -50,8 +47,8 @@ public class Highlighter {
 		  return ((double)similar)/different;
 	  }
 
-	  protected static Roi polyToRoi(BoundingPoly bp) {
-		  return new Roi(bp.getVertices(TOP_LEFT).getX(),
+	  protected static Rectangle polyToRect(BoundingPoly bp) {
+		  return new Rectangle(bp.getVertices(TOP_LEFT).getX(),
 				  bp.getVertices(TOP_LEFT).getY(),
 				  bp.getVertices(BOTTOM_RIGHT).getX() - bp.getVertices(TOP_LEFT).getX(),
 				  bp.getVertices(BOTTOM_RIGHT).getY() - bp.getVertices(TOP_LEFT).getY());

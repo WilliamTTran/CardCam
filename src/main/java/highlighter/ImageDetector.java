@@ -1,14 +1,13 @@
 package highlighter;
 
-import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import ij.ImagePlus;
-import ij.gui.Roi;
 import ij.io.Opener;
 import ij.process.ImageProcessor;
 
@@ -17,13 +16,13 @@ public class ImageDetector {
 	private static final int AREA_THRESHOLD = 5000; //min image area
 	
 	private HashSet<Point> checkedPoints = null;
-	private ArrayList<Roi> detectedImages = null;
+	private ArrayList<Rectangle> detectedImages = null;
 	private Point bottomRight = null;
 	private ImageProcessor ip;
 	
 	public ArrayList<BufferedImage> detectImages(String filePath, int[] pink) throws IOException {
 		checkedPoints = new HashSet<Point>();
-		detectedImages = new ArrayList<Roi>();
+		detectedImages = new ArrayList<Rectangle>();
 		bottomRight = null;
 		
 		//process image
@@ -36,14 +35,14 @@ public class ImageDetector {
 			  for(int x=0; x<ip.getWidth(); x++) {
 				  //skip checking if the area has already been highlighted
 				  boolean contains = false;
-				  for(Roi roi : detectedImages) {
-					  if(roi.contains(x, y)) {
+				  for(Rectangle rect : detectedImages) {
+					  if(rect.contains(x, y)) {
 						  contains = true;
 						  break;
 					  }
 				  }
 				  if(!contains && !checkedPoints.contains(new Point(x,y))) {
-					  Roi boxedImage = getBoxedImage(x,y, pink); //will be null unless it finds a new object
+					  Rectangle boxedImage = getBoxedImage(x,y, pink); //will be null unless it finds a new object
 					  	if(boxedImage != null){
 					  		if(Highlighter.highlightPercentage(ip, boxedImage, pink) < HIGHLIGHT_THRESHOLD){
 								  detectedImages.add(boxedImage);
@@ -53,7 +52,7 @@ public class ImageDetector {
 			  }
 		  }
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-		for(Roi r : detectedImages) {
+		for(Rectangle r : detectedImages) {
 			ImageProcessor cropped = ip.crop();
 			cropped.setRoi(r);
 			cropped = cropped.resize(r.getBounds().width, r.getBounds().height);
@@ -63,13 +62,13 @@ public class ImageDetector {
 		return images;
 	}
 	
-	private Roi getBoxedImage(int x, int y, int[] pink) {
+	private Rectangle getBoxedImage(int x, int y, int[] pink) {
 		bottomRight = new Point(x,y);
 		recursivelyCheckAdjacentPixels(x,y,pink);
-		double width = bottomRight.getX() - x;
-		double height = bottomRight.getY() - y;
+		int width = (int) (bottomRight.getX() - x);
+		int height = (int) (bottomRight.getY() - y);
 		if(width * height >= AREA_THRESHOLD) {
-			return new Roi(x,y,
+			return new Rectangle(x,y,
 					width,
 					height);
 		}else {
