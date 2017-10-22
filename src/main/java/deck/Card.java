@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 public class Card {
   
-	private static final String SIDE_SEPARATOR = ":::";
+	private static final String SIDE_SEPARATOR = ";";
 	private String path;
 	private String fileName;
 	private ArrayList<String> frontText = new ArrayList<String>();
@@ -97,6 +97,7 @@ public class Card {
 		}
 		writer.close();
 		updateCard();
+		makeAnkiCard();
 	}
 	
 	public void updateCard() {
@@ -144,6 +145,35 @@ public class Card {
 		catch(IOException e) {
 			System.out.println("Failed to find file.");
 		}
+	}
+	
+	private void makeAnkiCard() {
+		File ankiFile = new File(path + "\\" + fileName + "Anki.txt");
+		try {
+			ankiFile.createNewFile();
+			System.out.println("Created new file");
+		} catch (IOException e) {
+			System.out.println("Failed to create file");
+		}
+		
+		ankiFile.setWritable(true);
+		
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter(path + "\\" + fileName + "Anki.txt");
+		} catch (IOException e) {
+			System.out.println("Failed to find file");
+		}
+		
+		for(String line: frontText) {
+			writer.print(line);
+		}
+		writer.println("");
+		for(String line: backText) {
+			writer.print(line);
+		}
+		
+		writer.close();
 	}
 	
 	public ArrayList<String> getCardFront() {
