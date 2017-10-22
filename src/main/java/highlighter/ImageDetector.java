@@ -2,10 +2,14 @@ package highlighter;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.google.cloud.vision.v1.Vertex;
+import javax.imageio.ImageIO;
 
 import ij.ImagePlus;
 import ij.gui.Roi;
@@ -17,12 +21,13 @@ public class ImageDetector {
 	private static final int AREA_THRESHOLD = 5000; //min image area
 	
 	private HashSet<Point> checkedPoints = null;
-	private ArrayList<Roi> detectedImages = new ArrayList<Roi>();
+	private ArrayList<Roi> detectedImages = null;
 	private Point bottomRight = null;
 	private ImageProcessor ip;
 	
-	public void detectImages(String filePath, Color colorToCompare) {
+	public ArrayList<BufferedImage> detectImages(String filePath, Color colorToCompare) throws IOException {
 		checkedPoints = new HashSet<Point>();
+		detectedImages = new ArrayList<Roi>();
 		bottomRight = null;
 		
 		//process image
@@ -44,8 +49,6 @@ public class ImageDetector {
 				  if(!contains && !checkedPoints.contains(new Point(x,y))) {
 					  Roi boxedImage = getBoxedImage(x,y, colorToCompare); //will be null unless it finds a new object
 					  	if(boxedImage != null){
-					  		System.out.println(Highlighter.highlightPercentage(ip, boxedImage, colorToCompare));
-					  		System.out.println(boxedImage);
 					  		if(Highlighter.highlightPercentage(ip, boxedImage, colorToCompare) < HIGHLIGHT_THRESHOLD){
 								  detectedImages.add(boxedImage);
 					  		}
@@ -53,7 +56,15 @@ public class ImageDetector {
 				  }
 			  }
 		  }
-		System.out.println(detectedImages.size());
+		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+		for(Roi r : detectedImages) {
+			ImageProcessor cropped = ip.crop();
+			cropped.setRoi(r);
+			cropped = cropped.resize(r.getBounds().width, r.getBounds().height);
+			
+		    images.add(cropped.getBufferedImage());
+		}
+		return images;
 	}
 	
 	private Roi getBoxedImage(int x, int y, Color colorToCompare) {

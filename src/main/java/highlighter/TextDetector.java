@@ -95,7 +95,7 @@ public class TextDetector {
   }
 
   //https://stackoverflow.com/questions/318239/how-do-i-set-environment-variables-from-java
-  public static void setEnv(Map<String, String> newenv) throws Exception {
+  private static void setEnv(Map<String, String> newenv) throws Exception {
 	  try {
 	    Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
 	    Field theEnvironmentField = processEnvironmentClass.getDeclaredField("theEnvironment");
