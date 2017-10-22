@@ -28,7 +28,7 @@ import ij.process.ImageProcessor;
 public class TextDetector {
 	private static final double HIGHLIGHT_THRESHOLD = 0.45; //proportion of box which needs to be colored to be considered 'highlighted text'
 	private static final double NEW_LINE_THRESHOLD_MULTIPLIER = 0.5; //proportion of medianPixelHeight before a word is considered to be on a new line
-	private static final double NEW_BLOCK_THRESHOLD_MULTIPLIER = 2.0; //proportion of medianPixelHEight before a line is considered to be on 
+	private static final double NEW_BLOCK_THRESHOLD_MULTIPLIER = 2.0; //proportion of medianPixelHeight before a line is considered to be a new block
 	
   public static void main(String... args) throws Exception {
 	  HashMap<String, String> blah = new HashMap<String, String>();
