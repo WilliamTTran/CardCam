@@ -1,10 +1,11 @@
 package highlighter;
 
-import java.awt.Rectangle;
+import com.google.api.services.vision.v1.model.BoundingPoly;
 
-import com.google.cloud.vision.v1.BoundingPoly;
-
-import ij.process.ImageProcessor;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.graphics.Color;
+import android.util.Log;
 
 public class Highlighter {
 	public static final int[] BLUE = new int[] {99,165,161};
@@ -15,10 +16,15 @@ public class Highlighter {
 	
 	public static final String TEST_IMAGE_FILEPATH = "C:/Users/Kevin/Desktop/docusign3.jpg";
 	
-	  protected static boolean isPixelSimilarColor(ImageProcessor ip, int x, int y, int[] colorToCompare) { 
-		  int[] rgb = new int[3];
-		  ip.getPixel(x,y,rgb);
-		  
+	  protected static boolean isPixelSimilarColor(Bitmap ip, int x, int y, int[] colorToCompare) {
+		  int color = ip.getPixel(x,y);
+		  int r = Color.red(color);
+		  int g = Color.green(color);
+		  int b = Color.blue(color);
+		  int[] rgb = { r, g, b};
+
+          //Log.i("RGB LUL", x + " " + y + " " + rgb[0] + " " + rgb[1] + " " + rgb[2]);
+
 		  return similarColor(colorToCompare,rgb);
 	  }
 
@@ -32,25 +38,33 @@ public class Highlighter {
 				  + Math.pow(c1[Highlighter.RGB_BLUE]-c2[Highlighter.RGB_BLUE],2));
 	  }
 	
-	  protected static double highlightPercentage(ImageProcessor ip, Rectangle r, int[] colorToCompare) {
+	  protected static double highlightPercentage(Bitmap ip, Rect r, int[] colorToCompare) {
 		  int similar = 0, different = 0;
 
-		  for(int y=r.y; y<r.getMaxY(); y++) {
-			  for(int x=r.x; x<r.getMaxX(); x++) {
+		  for(int y=Math.max(0,r.top); y<r.bottom; y++) {
+			  for(int x=Math.max(0,r.left); x<r.right; x++) {
 				  if(Highlighter.isPixelSimilarColor(ip,x,y, colorToCompare)) {
 					  similar++;
-				  }else {
+				  } else {
 					  different++;
 				  }
 			  }
 		  }
+
+		  Log.i("PERCENTAGE", similar + " " + different);
+
 		  return ((double)similar)/different;
 	  }
 
-	  protected static Rectangle polyToRect(BoundingPoly bp) {
-		  return new Rectangle(bp.getVertices(TOP_LEFT).getX(),
-				  bp.getVertices(TOP_LEFT).getY(),
-				  bp.getVertices(BOTTOM_RIGHT).getX() - bp.getVertices(TOP_LEFT).getX(),
-				  bp.getVertices(BOTTOM_RIGHT).getY() - bp.getVertices(TOP_LEFT).getY());
+	  protected static Rect polyToRect(BoundingPoly bp) {
+          Log.i("asd", bp.getVertices().get(TOP_LEFT).getY() + " " + bp.getVertices().get(BOTTOM_RIGHT).getY());
+          try {
+              return new Rect(bp.getVertices().get(TOP_LEFT).getX(),
+                      bp.getVertices().get(TOP_LEFT).getY(),
+                      bp.getVertices().get(BOTTOM_RIGHT).getX(),
+                      bp.getVertices().get(BOTTOM_RIGHT).getY());
+          }catch(Exception e){
+              return null;
+          }
 	  }
 }

@@ -19,21 +19,32 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/cardText"
+        android:id="@+id/frontCardText"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/sideText"
         android:ems="10"
         android:gravity="center"
-        android:inputType="textPersonName" />
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/backCardText"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sideText"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:visibility="invisible" />
 
     <ListView
         android:id="@+id/cardOptions"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/cardText" />
+        android:layout_below="@+id/frontCardText" />
 
     <ImageButton
         android:id="@+id/nextButton"
@@ -70,5 +81,15 @@
         android:layout_toEndOf="@+id/nextButton"
         android:background="@drawable/done_button"
         android:onClick="onDoneClick"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cardOptions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>

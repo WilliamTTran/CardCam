@@ -18,11 +18,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="To add notes to the front, highlight the text, and box images in bold pink. For the back, do so in bold blue."
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:gravity="center"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
 
@@ -41,20 +41,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="Drag and drop your notes onto the face of the card at the top. To see more of your notes, scroll up and down the text section. Afterwards, you may take more photos, edit the back face of the card, or finish the card."
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:gravity="center" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="While viewing the final card, you may go back to edit it, make a new card in the deck, or finalize the deck."
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:gravity="center" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView5"
