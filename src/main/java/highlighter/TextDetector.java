@@ -34,10 +34,10 @@ public class TextDetector {
 	  HashMap<String, String> blah = new HashMap<String, String>();
 	  blah.put("GOOGLE_APPLICATION_CREDENTIALS", "C:/Users/Kevin/Desktop/gcred.json");
 	  setEnv(blah);
-	  System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.BLUE));
-	  System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK));
-	  //ImageDetector id = new ImageDetector();
-	  //id.detectImages(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK);
+	  //System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.BLUE));
+	  //System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK));
+	  ImageDetector id = new ImageDetector();
+	  System.out.println(id.detectImages(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK));
   }
   
   private static List<List<String>> getHighlightedText(ImageProcessor ip, List<EntityAnnotation> annotations, int[] colorToCompare) {

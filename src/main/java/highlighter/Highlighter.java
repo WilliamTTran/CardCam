@@ -13,7 +13,7 @@ public class Highlighter {
 	protected static final double COLOR_DISTANCE_THRESHOLD = 60; //3d (r,g,b) distance to be considered dissimilar colors
 	protected static final int TOP_LEFT = 0, TOP_RIGHT = 1, BOTTOM_RIGHT = 2, BOTTOM_LEFT = 3;
 	
-	public static final String TEST_IMAGE_FILEPATH = "C:/Users/Kevin/Desktop/docusign4.jpg";
+	public static final String TEST_IMAGE_FILEPATH = "C:/Users/Kevin/Desktop/docusign3.jpg";
 	
 	  protected static boolean isPixelSimilarColor(ImageProcessor ip, int x, int y, int[] colorToCompare) { 
 		  int[] rgb = new int[3];
