@@ -9,6 +9,21 @@
    <maven.compiler.source>1.8</maven.compiler.source>
    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+        <id>imagej.public</id>
+        <url>http://maven.imagej.net/content/groups/public</url>
+    </repository>
+  </repositories>
+
   <dependencies>
  	<!-- https://mvnrepository.com/artifact/org.json/json -->
 	<dependency>
@@ -23,12 +38,11 @@
 	    <version>0.26.0-beta</version>
 	</dependency>
 
-<!-- https://mvnrepository.com/artifact/gov.nih.imagej/imagej -->
 <dependency>
-    <groupId>gov.nih.imagej</groupId>
-    <artifactId>imagej</artifactId>
-    <version>1.47</version>
-</dependency>
+        <groupId>net.imagej</groupId>
+        <artifactId>imagej</artifactId>
+        <version>2.0.0-rc-28</version>
+    </dependency>
 
 
 	
