@@ -26,7 +26,7 @@ import ij.io.Opener;
 import ij.process.ImageProcessor;
 
 public class TextDetector {
-	private static final double HIGHLIGHT_THRESHOLD = 0.60; //proportion of box which needs to be colored to be considered 'highlighted text'
+	private static final double HIGHLIGHT_THRESHOLD = 0.45; //proportion of box which needs to be colored to be considered 'highlighted text'
 	private static final double NEW_LINE_THRESHOLD_MULTIPLIER = 0.5; //proportion of medianPixelHeight before a word is considered to be on a new line
 	private static final double NEW_BLOCK_THRESHOLD_MULTIPLIER = 2.0; //proportion of medianPixelHEight before a line is considered to be on 
 	
@@ -34,10 +34,10 @@ public class TextDetector {
 	  HashMap<String, String> blah = new HashMap<String, String>();
 	  blah.put("GOOGLE_APPLICATION_CREDENTIALS", "C:/Users/Kevin/Desktop/gcred.json");
 	  setEnv(blah);
-	  //System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.BLUE));
-	  //System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK));
-	  ImageDetector id = new ImageDetector();
-	  id.detectImages(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK);
+	  System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.BLUE));
+	  System.out.println(detectText(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK));
+	  //ImageDetector id = new ImageDetector();
+	  //id.detectImages(Highlighter.TEST_IMAGE_FILEPATH, Highlighter.PINK);
   }
   
   private static List<List<String>> getHighlightedText(ImageProcessor ip, List<EntityAnnotation> annotations, int[] colorToCompare) {
