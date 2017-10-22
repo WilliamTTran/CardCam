@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B2EBF2"
+    tools:context="com.thonkang.flashcardcreator.HomeActivity">
+
+    <ImageButton
+        android:id="@+id/createButton"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/create_button"
+        android:contentDescription="Create New Deck" />
+
+    <ImageButton
+        android:id="@+id/viewButton"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_alignStart="@+id/createButton"
+        android:layout_below="@+id/createButton"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/view_button"
+        android:contentDescription="View Decks" />
+
+    <ImageButton
+        android:id="@+id/helpButton"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_alignStart="@+id/viewButton"
+        android:layout_below="@+id/viewButton"
+        android:layout_marginTop="37dp"
+        android:background="@drawable/help_button"
+        android:contentDescription="Help" />
+</RelativeLayout>
