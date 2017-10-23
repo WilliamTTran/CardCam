@@ -61,7 +61,7 @@ import highlighter.TextDetector;
 public class CardSelector extends Activity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final String CLOUD_VISION_API_KEY = "AIzaSyB9j8N2OWfLDMYuaqNcEzCy7poaFNEahhk";
+    private static final String CLOUD_VISION_API_KEY = "API_KEY"; // ENTER API KEY HERE
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
     private final static int CAMERA_RQ = 6969;
